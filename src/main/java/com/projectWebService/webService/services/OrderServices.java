@@ -1,7 +1,7 @@
 package com.projectWebService.webService.services;
 
-import com.projectWebService.webService.entities.User;
-import com.projectWebService.webService.repositories.UserReposiory;
+import com.projectWebService.webService.entities.Order;
+import com.projectWebService.webService.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,19 @@ import java.util.Optional;
 
 // Para que você use o useResource a classe userServices precisa ser um componente
 @Service
-public class UserServices {
+public class OrderServices {
 
     @Autowired
     //dependecia
-    private UserReposiory repository;
+    private OrderRepository repository;
 
-    public List<User> findAll(){
+    public List<Order> findAll(){
         return repository.findAll();
     }
 
-    public User findById(Long id){
+    public Order findById(Long id){
 
-        Optional<User> obj = repository.findById(id);
+        Optional<Order> obj = repository.findById(id);
         return obj.get();
 
     }

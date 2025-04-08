@@ -1,5 +1,7 @@
 package com.projectWebService.webService.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,6 +16,8 @@ public class Order implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm'Z'", timezone = "GMT")
     private Instant moment;
 
     // Essa é a forma como se declara uma chave estrageira de muitos para um, uma anotação para o banco de dados
@@ -26,7 +30,7 @@ public class Order implements Serializable{
 
     }
 
-    public Order(Long id, Instant momment, User client) {
+    public Order(Long id, Instant moment, User client) {
         this.id = id;
         this.moment = moment;
         this.client = client;
