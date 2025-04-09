@@ -3,11 +3,14 @@ package com.projectWebService.webService.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projectWebService.webService.entities.enums.OrdersStatus;
+import com.projectWebService.webService.entities.pk.OrderItemPk;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -28,6 +31,8 @@ public class Order implements Serializable{
     @JoinColumn(name = "client_id")
     private User client;
 
+    @OneToMany(mappedBy = "id.order") //No orderItem é que tem o id e por sua vez o order que tem o id
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order(){
 
@@ -73,6 +78,10 @@ public class Order implements Serializable{
         if(ordersStatus != null) {
             this.ordersStatus = ordersStatus.getCode();
         }
+    }
+
+    public Set<OrderItem> getItems(){
+        return items;
     }
 
     @Override
