@@ -22,7 +22,13 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    @Transient                                // lembrando que isso é para garantir que não começe valendo nula e sim vazia!
+    //Many to many association with JoinTable
+    // lembrando que isso é para garantir que não começe valendo nula e sim vazia!
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+
     private Set<Category> categories = new HashSet<>();
 
     public Product(){
