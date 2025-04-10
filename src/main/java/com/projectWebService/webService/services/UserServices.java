@@ -2,6 +2,7 @@ package com.projectWebService.webService.services;
 
 import com.projectWebService.webService.entities.User;
 import com.projectWebService.webService.repositories.UserReposiory;
+import com.projectWebService.webService.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,11 @@ public class UserServices {
 
     public User findById(Long id){
 
+        // Tenta buscar um objeto do tipo User no banco de dados, usando o ID fornecido.
+        // O metodo findById retorna um Optional, que pode ou não conter um valor.
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        // oElseThrow ele procuara pelo id caso não exista ele lança a exeção ResourceNotFoundException passando o ID como argumento.
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 
     }
 
